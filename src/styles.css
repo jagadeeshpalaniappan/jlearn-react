@@ -1,7 +1,4 @@
-body {
-  margin-top: 20px;
-}
-
-.App {
+#root {
   font-family: sans-serif;
+  margin-top: 20px;
 }
