@@ -1,4 +1,10 @@
 #root {
   font-family: sans-serif;
-  margin-top: 20px;
+  margin: 20px;
+}
+
+a:not([href]):not([tabindex]) {
+  cursor: pointer;
+  color: red;
+  margin-left: 10px;
 }
