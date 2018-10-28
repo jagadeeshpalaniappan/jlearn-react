@@ -8,7 +8,7 @@ import { Provider, connect } from "react-redux";
 
 // --------------------------------------- CONSTANTS -------------------------------------------------
 
-const VisibilityFilters = {
+const FilterTypes = {
   SHOW_ALL: "SHOW_ALL",
   SHOW_COMPLETED: "SHOW_COMPLETED",
   SHOW_ACTIVE: "SHOW_ACTIVE"
@@ -20,13 +20,8 @@ const exportActions = () => {
   const addTodoAction = text => ({ type: "ADD_TODO", id: nextTodoId++, text });
   const removeTodoAction = id => ({ type: "REMOVE_TODO", id });
   const toggleTodoAction = id => ({ type: "TOGGLE_TODO", id });
-
-  const setVisibilityFilterAction = filter => ({
-    type: "SET_VISIBILITY_FILTER",
-    filter
-  });
-
-  return { addTodoAction, removeTodoAction, toggleTodoAction, setVisibilityFilterAction };
+  const setSelectedFilterAction = filter => ({ type: "SET_SELECTED_FILTER", filter });
+  return { addTodoAction, removeTodoAction, toggleTodoAction, setSelectedFilterAction };
 };
 const actions = exportActions();
 // --------------------------------------- REDUCERS -------------------------------------------------
@@ -48,16 +43,16 @@ const exportReducers = () => {
     }
   };
 
-  const visibilityFilter = (state = VisibilityFilters.SHOW_ALL, action) => {
+  const selectedFilterReducer = (state = FilterTypes.SHOW_ALL, action) => {
     switch (action.type) {
-      case "SET_VISIBILITY_FILTER":
+      case "SET_SELECTED_FILTER":
         return action.filter;
       default:
         return state;
     }
   };
 
-  return { todosReducer, visibilityFilter };
+  return { todosReducer, selectedFilterReducer };
 };
 
 const reducers = exportReducers();
@@ -117,11 +112,11 @@ const TodoList = ({ todos, removeTodo, toggleTodo }) => (
 const exportTodoListContainer = () => {
   const getVisibleTodos = (todos, filter) => {
     switch (filter) {
-      case VisibilityFilters.SHOW_ALL:
+      case FilterTypes.SHOW_ALL:
         return todos;
-      case VisibilityFilters.SHOW_COMPLETED:
+      case FilterTypes.SHOW_COMPLETED:
         return todos.filter(t => t.completed);
-      case VisibilityFilters.SHOW_ACTIVE:
+      case FilterTypes.SHOW_ACTIVE:
         return todos.filter(t => !t.completed);
       default:
         // throw new Error("Unknown filter: " + filter);
@@ -132,7 +127,7 @@ const exportTodoListContainer = () => {
   const mapStateToProps = state => {
     console.log(state);
     return {
-      todos: getVisibleTodos(state.todos, state.visibilityFilter)
+      todos: getVisibleTodos(state.todos, state.selectedFilter)
     };
   };
 
@@ -172,11 +167,11 @@ const FilterLink = ({ active, children, onClick }) => (
 // FilterLinkContainer:
 const exportFilterLinkContainer = () => {
   const mapStateToProps = (state, ownProps) => ({
-    active: ownProps.filter === state.visibilityFilter
+    active: ownProps.filter === state.selectedFilter
   });
 
   const mapDispatchToProps = (dispatch, ownProps) => ({
-    onClick: () => dispatch(actions.setVisibilityFilterAction(ownProps.filter))
+    onClick: () => dispatch(actions.setSelectedFilterAction(ownProps.filter))
   });
 
   return connect(
@@ -190,9 +185,9 @@ const FilterLinkContainer = exportFilterLinkContainer();
 const Footer = () => (
   <div>
     <span>Show: </span>
-    <FilterLinkContainer filter={VisibilityFilters.SHOW_ALL}>All</FilterLinkContainer>
-    <FilterLinkContainer filter={VisibilityFilters.SHOW_ACTIVE}>Active</FilterLinkContainer>
-    <FilterLinkContainer filter={VisibilityFilters.SHOW_COMPLETED}>Completed</FilterLinkContainer>
+    <FilterLinkContainer filter={FilterTypes.SHOW_ALL}>All</FilterLinkContainer>
+    <FilterLinkContainer filter={FilterTypes.SHOW_ACTIVE}>Active</FilterLinkContainer>
+    <FilterLinkContainer filter={FilterTypes.SHOW_COMPLETED}>Completed</FilterLinkContainer>
   </div>
 );
 
@@ -208,7 +203,7 @@ const App = () => (
 
 const rootReducer = combineReducers({
   todos: reducers.todosReducer,
-  visibilityFilter: reducers.visibilityFilter
+  selectedFilter: reducers.selectedFilterReducer
 });
 
 const store = createStore(rootReducer);
