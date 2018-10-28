@@ -9,7 +9,7 @@ import { Provider, connect } from "react-redux";
 
 let nextTodoId = 0;
 const addTodoAction = text => ({ type: "ADD_TODO", id: nextTodoId++, text });
-const removeTodoAction = id => ({ type: "TOGGLE_TODO", id });
+const removeTodoAction = id => ({ type: "REMOVE_TODO", id });
 
 // --------------------------------------- REDUCERS -------------------------------------------------
 const todosReducer = (state = [], action) => {
@@ -17,7 +17,7 @@ const todosReducer = (state = [], action) => {
   switch (action.type) {
     case "ADD_TODO":
       return [...state, { id: action.id, text: action.text }];
-    case "TOGGLE_TODO":
+    case "REMOVE_TODO":
       return state.filter(todo => todo.id !== action.id);
     default:
       return state;
