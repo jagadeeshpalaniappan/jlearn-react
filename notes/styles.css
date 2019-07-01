@@ -8,3 +8,19 @@ a:not([href]):not([tabindex]) {
   color: red;
   margin-left: 10px;
 }
+
+ul {
+  list-style-type: none;
+}
+
+li.jag-li {
+  padding: 10px;
+  border: 1px solid #eee;
+  width: 100px;
+  cursor: pointer;
+  user-select: none;
+}
+
+li.jag-li.selected {
+  background-color: #eee;
+}
