@@ -1,5 +1,5 @@
 {
-  "name": "jnotes-react",
+  "name": "jlearn-react-and-redux",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -9,7 +9,7 @@
     "react-dom": "16.5.2",
     "react-router-dom": "4.2.2",
     "redux": "^3.5.2",
-    "react-redux": "^5.0.7",    
+    "react-redux": "^5.0.7",
     "react-scripts": "2.0.3"
   },
   "devDependencies": {},

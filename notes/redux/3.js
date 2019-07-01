@@ -1,4 +1,4 @@
-import "./styles.css";
+import "../styles.css";
 // REACT:
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
@@ -35,8 +35,8 @@ const exportReducers = () => {
       case "REMOVE_TODO":
         return state.filter(todo => todo.id !== action.id);
       case "TOGGLE_TODO":
-        return state.map(
-          todo => (todo.id === action.id ? { ...todo, completed: !todo.completed } : todo)
+        return state.map(todo =>
+          todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
         );
       default:
         return state;
