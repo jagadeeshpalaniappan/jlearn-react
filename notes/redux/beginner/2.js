@@ -7,7 +7,7 @@
     - ***form: using 'class component' & 'state' (recommended)
 */
 
-import "./styles.css";
+import "../../styles.css";
 // REACT:
 import React from "react";
 import ReactDOM from "react-dom";

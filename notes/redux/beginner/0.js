@@ -17,7 +17,7 @@ ReactDOM.render(
 
 */
 
-import "./styles.css";
+import "../../styles.css";
 // REACT:
 import React from "react";
 import ReactDOM from "react-dom";
