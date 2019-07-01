@@ -1,4 +1,4 @@
-import "./styles.css";
+import "../styles.css";
 // REACT:
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
